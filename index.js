@@ -29,10 +29,12 @@ async function main() {
     const NUM_TRANSACTIONS = 1000;
     
     const currentGasPrice = await provider.getGasPrice();
+    const adjustedGasPrice = currentGasPrice.mul(110).div(100);
+
     for (let i = 0; i < NUM_TRANSACTIONS; i++) {
         try {
             const tx = await contract.increment({
-                gasPrice: currentGasPrice,
+                gasPrice: adjustedGasPrice,
                 gasLimit: 50000 
             });
             console.log(`Tx ${i+1} success: ${tx.hash}`);
